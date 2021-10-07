@@ -1,0 +1,26 @@
+#!/bin/bash
+#while :; do echo `ifconfig tun0 2>/dev/null|awk '/inet / {print $2}'` > ip.txt; sleep 300; done &
+
+
+for (( c=1; c<=9999; c++ ))
+do  
+echo "
+------------------------------------------------------------------------------------------------------
+bruh..  			bruh..	
+							Bruh...		bruh...
+			bruh.		bruh..	
+	bruh..
+												buh..
+ bruh...									
+	  bruh....  				bruh..				bruh
+------------------------------------------------------------------------------------------------------"
+	echo "starting $c"
+	sudo killall openvpn   
+	sudo openvpn "/tmp/psw.ovpn" 
+	sudo killall openvpn 
+	read -t 1 -p "press ctrl+c again to close"
+    clear
+    echo "null" > /tmp/ip.txt
+done 
+echo "null" > /tmp/ip.txt
+

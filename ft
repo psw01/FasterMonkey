@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#easy file transfer with netcat
+
+echo "   __     _     _ _   
+  / _|   | |   (_) |  
+ | |_ ___| |__  _| |_ 
+ |  _/ __| '_ \| | __|
+ | | \__ \ | | | | |_ 
+ |_| |___/_| |_|_|\__|
+ "
+
+
+
+
+port=5969
+
+if [[ "$1" == "-h" ]]; then
+	echo "ft <fileName> <port>"
+	exit
+fi
+
+lurl=$(echo `ifconfig eth0 2>/dev/null|awk '/inet / {print $2}'`)
+turl=$(echo `ifconfig tun0 2>/dev/null|awk '/inet / {print $2}'`)
+
+if [[ -z "$1" ]]; then
+  echo -n "File Name: ": 
+	read fileName
+
+elif [[ -n "$1" ]]; then
+  fileName=$1
+fi
+
+if [ $2 ]; then 
+	port=$2
+fi
+
+echo "---------------------------"
+if [ $lurl ]; then 
+	echo "nc $lurl $port < $fileName"
+fi
+if [ $turl ]; then 
+	echo "nc $turl $port < $fileName"
+fi
+echo "---------------------------"
+
+nc -nvlnp $port > $fileName
